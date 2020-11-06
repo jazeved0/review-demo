@@ -20,7 +20,7 @@ public class CalculatorWindow {
     private static final int OPERATION_LEFT_SPACING = 16;
     private static final int COMBO_BOX_WIDTH = 150;
     private static final String RESULT_FORMAT = "Result: %s";
-    private static final String[] OPERATIONS = {"+", "-", "*", "/", "^", "%"};
+    private static final String[] OPERATIONS = {"+", "-", "*", "/", "**", "%"};
     @SuppressWarnings("unchecked")
     private static final BiFunction<Integer, Integer, Integer>[] OPERATION_FUNCTIONS =
         (BiFunction<Integer, Integer, Integer>[]) new BiFunction[] {
