@@ -19,8 +19,8 @@ public class CalculatorWindow {
     private static final int FORM_LINE_HEIGHT = 36;
     private static final int OPERATION_LEFT_SPACING = 16;
     private static final int COMBO_BOX_WIDTH = 150;
-    private static final String RESULT_FORMAT = "Result of %s: %s";
-    private static final String[] OPERATIONS = {"+", "-", "*", "/", "**", "%", "&", "|", "^"};
+    private static final String RESULT_FORMAT = "Result: %s";
+    private static final String[] OPERATIONS = {"+", "-", "*", "/", "**", "%"};
     @SuppressWarnings("unchecked")
     private static final BiFunction<Integer, Integer, Integer>[] OPERATION_FUNCTIONS =
         (BiFunction<Integer, Integer, Integer>[]) new BiFunction[] {
@@ -29,10 +29,7 @@ public class CalculatorWindow {
             (a, b) -> ((int) a * (int) b),
             (a, b) -> ((int) a / (int) b),
             (a, b) -> ((int) Math.pow((int) a, (int) b)),
-            (a, b) -> ((int) a % (int) b),
-            (a, b) -> ((int) a & (int) b),
-            (a, b) -> ((int) a | (int) b),
-            (a, b) -> ((int) a ^ (int) b) };
+            (a, b) -> ((int) a % (int) b) };
 
     private JFrame root;
     private JLabel resultLabel;
@@ -73,9 +70,8 @@ public class CalculatorWindow {
 
     protected JPanel createForm() {
         JPanel panel = new JPanel(new SpringLayout());
-        for (int i = 0; i <= OPERANDS.length; ++i) {
-            String operand = OPERANDS[i];
-            JLabel lbl = new JLabel(operand, JLabel.TRAILING);
+        for (int i = 0; i < OPERANDS.length; ++i) {
+            JLabel lbl = new JLabel(OPERANDS[i], JLabel.TRAILING);
             lbl.setBorder(new EmptyBorder(0, 0, SPACING, SPACING));
 
             JTextField txtField = new JTextField("");
@@ -131,7 +127,7 @@ public class CalculatorWindow {
         panel.add(Box.createRigidArea(new Dimension(OPERATION_LEFT_SPACING, 0)));
         panel.add(operationSelector);
 
-        JLabel resultLabel = new JLabel(String.format(RESULT_FORMAT, "none", ""));
+        JLabel resultLabel = new JLabel(String.format(RESULT_FORMAT, ""));
         this.resultLabel = resultLabel;
         panel.add(Box.createRigidArea(new Dimension(SPACING, 0)));
         panel.add(resultLabel);
@@ -142,27 +138,11 @@ public class CalculatorWindow {
     }
 
     protected void resetResult() {
-        this.resultLabel.setText(String.format(RESULT_FORMAT, "none", ""));
+        this.resultLabel.setText(String.format(RESULT_FORMAT, ""));
     }
 
     protected void setResult(int newResult) {
-        String[] operationStrings = {
-            "addition",
-            "subtraction",
-            "multiplication",
-            "division",
-            "exponentiation",
-            "modulus",
-            "bitwise and",
-            "bitwise or",
-            "bitwise xor"
-        };
-        String result = String.format(
-            RESULT_FORMAT,
-            operationStrings[this.currentOperation],
-            String.valueOf(newResult)
-        );
-        this.resultLabel.setText(result);
+        this.resultLabel.setText(String.format(RESULT_FORMAT, String.valueOf(newResult)));
     }
 
     protected void setCurrentOperation(int newOperation) {
