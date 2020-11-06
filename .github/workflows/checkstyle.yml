@@ -1,0 +1,12 @@
+name: checkstyle
+on: [push, pull_request]
+
+jobs:
+  run-checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        # Run checkstyle script as GitHub Action step
+      - name: Run Checkstyle
+        run: python3 ./run_checkstyle.py --root ./src
+        shell: bash
